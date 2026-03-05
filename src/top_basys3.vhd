@@ -1,18 +1,12 @@
---+----------------------------------------------------------------------------
---| FILENAME      : top_basys3.vhd
---| AUTHOR(S)     : MaxS
---| DESCRIPTION   : Top level module connecting switches to 7-segment decoder
---+----------------------------------------------------------------------------
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.numeric_std.all;
 
 entity top_basys3 is
     port(
-        seg     :   out std_logic_vector(6 downto 0);
-        an      :   out std_logic_vector(3 downto 0);
-        sw      :   in  std_logic_vector(3 downto 0);
-        btnC    :   in  std_logic
+        seg   : out std_logic_vector(6 downto 0);
+        an    : out std_logic_vector(3 downto 0);
+        sw    : in  std_logic_vector(3 downto 0);
+        btnC  : in  std_logic
     );
 end top_basys3;
 
@@ -35,11 +29,8 @@ begin
         o_seg_n => seg 
     );
 
-    w_7SD_EN_n  <= not btnC;
+    w_7SD_EN_n <= not btnC;
 
-    an(0)   <= w_7SD_EN_n;
-    an(1)   <= '1';
-    an(2)   <= '1';
-    an(3)   <= '1';
+    an <= (0 => w_7SD_EN_n, others => '1'); -- Digit 0 active when btnC is high
     
 end top_basys3_arch;
