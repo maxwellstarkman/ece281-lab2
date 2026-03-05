@@ -17,13 +17,13 @@ architecture top_basys3_arch of top_basys3 is
             i_Hex   : in  std_logic_vector(3 downto 0);
             o_seg_n : out std_logic_vector(6 downto 0)
         );
-    end component;
+    end component sevenseg_decoder;
 
     signal w_7SD_EN_n : std_logic;
 
 begin
 
-    my_sevenseg_decoder : sevenseg_decoder
+    sevenseg_decoder_inst : sevenseg_decoder
     port map (
         i_Hex   => sw,
         o_seg_n => seg 
@@ -31,6 +31,9 @@ begin
 
     w_7SD_EN_n <= not btnC;
 
-    an <= (0 => w_7SD_EN_n, others => '1'); -- Digit 0 active when btnC is high
+    an(0) <= w_7SD_EN_n;
+    an(1) <= '1';
+    an(2) <= '1';
+    an(3) <= '1';
     
 end top_basys3_arch;
